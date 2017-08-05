@@ -12,7 +12,7 @@ public class AnimatedSprite {
     TextureRegion frame;
     
     public AnimatedSprite(Texture _spriteSheet, int _FRAME_COLS, int _FRAME_ROWS)
-	{
+	{    	
 		FRAME_COLS = _FRAME_COLS;
 		FRAME_ROWS = _FRAME_ROWS;
 		spriteSheet = _spriteSheet; 
@@ -23,7 +23,7 @@ public class AnimatedSprite {
             for (int j = 0; j < FRAME_COLS; j++) {
                 animationFrames[index++] = tmp[i][j];
             }
-        }         
+        }      
     }
     //Getters y Setters
 	public Texture getSpriteSheet() {
@@ -47,6 +47,6 @@ public class AnimatedSprite {
 	}
 
 	public void setFrame(TextureRegion frame) {
-		this.frame = frame;
+		this.frame = frame;		
 	}    
 }

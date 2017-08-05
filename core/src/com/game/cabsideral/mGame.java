@@ -11,8 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.cabsideral.buildings.*;
-import com.game.cabsideral.codebase.Character;
 import com.game.cabsideral.engine.*;
 import com.game.cabsideral.screens.*;
 
@@ -25,10 +23,7 @@ public class mGame extends ApplicationAdapter {
 	private SpriteBatch batch;	
 	
 	//Just for testing	
-	private Sprite testBackground;	
-	private Pub testBuildingSP;
-	private Character testCharacter;
-    private Sprite floatingButtonSprite;  
+	private Sprite floatingButtonSprite;  
     private BitmapFont font;  
     
     //Camera and resolution independence
@@ -41,7 +36,7 @@ public class mGame extends ApplicationAdapter {
     private SplashScreen splashScreen;
     private MainMenuScreen mainMenuScreen;
     private GameScreen gameScreen;
-    private CreditsScreen creditsScreen;    
+    private CreditsScreen creditsScreen;   
         
 	@Override
 	public void create () {
@@ -70,17 +65,14 @@ public class mGame extends ApplicationAdapter {
 	
 	@Override  
     public void resize(int width, int height) {  
-        super.resize(width, height);  
-          
+        super.resize(width, height);            
         VirtualViewport virtualViewport = multipleVirtualViewportBuilder.getVirtualViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());  
-        camera.setVirtualViewport(virtualViewport);  
-          
+        camera.setVirtualViewport(virtualViewport);          
         camera.updateViewport();  
         // centers the camera at 0, 0 (the center of the virtual viewport)  
-        camera.position.set(0f, 0f, 0f);  
-          
-        // relocate floating stuff        
-        floatingButtonSprite.setPosition(virtualViewport.getVirtualWidth() * 0.5f - 80, virtualViewport.getVirtualHeight() * 0.5f - 80);  
+        camera.position.set(0f, 0f, 0f);          
+        // relocate floating stuff
+        floatingButtonSprite.setPosition(virtualViewport.getVirtualWidth() * 0.5f - 80, virtualViewport.getVirtualHeight() * 0.5f - 80);          
     }  
 	
 	public void update(float deltaTime) 
@@ -112,18 +104,13 @@ public class mGame extends ApplicationAdapter {
 			this.gameState = GameState.GameScreenMaker;
 			break;
 		case GameScreenMaker:			
-	        testBackground = new Sprite(assets.get("resSop.png",Texture.class));  
-	        testBackground.setPosition(-960, -768);  
-	        testBackground.setSize(1920, 1536);
-	        testBuildingSP = new Pub();	        
-	        testCharacter = new Character();
-	        font = new BitmapFont();  
-	        font.setColor(Color.BLACK);  	        
+			gameScreen = new GameScreen();			
+			font = new BitmapFont();  
+	        font.setColor(Color.BLACK);       
 	    	this.gameState = GameState.GameScreen;
 			break;
 		case GameScreen:
-			testBuildingSP.update(deltaTime);
-			testCharacter.update(deltaTime);
+			gameScreen.update(deltaTime);			
 			break;	
 		case CreditsScreenMaker:
 			break;
@@ -138,7 +125,7 @@ public class mGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		update(Gdx.graphics.getDeltaTime());		
 		camera.update();  
-		Gdx.graphics.setWindowedMode(852, 480);
+		Gdx.graphics.setWindowedMode(1280, 720);
 		//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
         // render stuff...  
         batch.setProjectionMatrix(camera.combined);  
@@ -148,24 +135,22 @@ public class mGame extends ApplicationAdapter {
 		case LogoScreenMaker:
 			break;			
 		case LogoScreen:
-				break;	
+			break;	
 		case SplashScreenMaker: 
 			break;		
 		case SplashScreen:				
-				break;
+			break;
 		case MainMenuScreenMaker:
 			break;
 		case MainMenuScreen:
 			break;		
 		case GameScreenMaker:
-				break;	
+			break;	
 		case GameScreen:
-				testBackground.draw(batch);
-				testBuildingSP.draw(batch);
-				testCharacter.draw(batch);
-		        floatingButtonSprite.draw(batch);  
-		        font.draw(batch, String.format("%1$sx%2$s", Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), -20, 0);  
-		        break;
+			gameScreen.draw(batch);
+			floatingButtonSprite.draw(batch);  
+		    font.draw(batch, String.format("%1$sx%2$s", Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), -20, 0);  
+		    break;
 		case CreditsScreenMaker:
 			break;
 		case CreditsScreen:
@@ -180,10 +165,20 @@ public class mGame extends ApplicationAdapter {
 		assets.get("buildings/pub/build.png", Texture.class).dispose();
 		assets.get("buildings/pub/door.png", Texture.class).dispose();
 		assets.get("buildings/pub/doorhole.png", Texture.class).dispose();
-		assets.get("buildings/pub/gravityring.png", Texture.class).dispose();
+		assets.get("buildings/pub/innergravityring.png", Texture.class).dispose();
+		assets.get("buildings/pub/outergravityring.png", Texture.class).dispose();
 		assets.get("resSop.png",Texture.class).dispose();
 		assets.get("character/character.png", Texture.class).dispose();
 		assets.get("character/backpack.png", Texture.class).dispose();
 		assets.dispose();
 	}
+
+	public GameScreen getGameScreen() {
+		return gameScreen;
+	}
+
+	public void setGameScreen(GameScreen gameScreen) {
+		this.gameScreen = gameScreen;
+	}
+	
 }

@@ -1,6 +1,6 @@
 package com.game.cabsideral.engine;
 
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.game.cabsideral.mGame;
 
@@ -14,19 +14,21 @@ public class InputEngine implements InputProcessor{
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		if(keycode == Keys.LEFT) 
-		{
-			//Rotate left
-		}else if(keycode == Keys.RIGHT) 
-		{
-			//Rotate right
-		}	
-		return false;
-	}
-
+		if(keycode == Input.Keys.RIGHT)			
+			game.getGameScreen().getCharacter().getBody().setLinearVelocity(100f, 0f);
+		if(keycode == Input.Keys.LEFT)	
+			game.getGameScreen().getCharacter().getBody().setLinearVelocity(-100f,0f);
+		if(keycode == Input.Keys.UP)
+			game.getGameScreen().getCharacter().getBody().setLinearVelocity(0f,300f);
+		if(keycode == Input.Keys.SPACE) {
+			game.getGameScreen().getCharacter().getBody().setLinearVelocity(0f, 0f);
+			game.getGameScreen().getCharacter().getBody().setAngularVelocity(0f);	
+		}
+		return true;
+	}	
+	
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -65,5 +67,4 @@ public class InputEngine implements InputProcessor{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

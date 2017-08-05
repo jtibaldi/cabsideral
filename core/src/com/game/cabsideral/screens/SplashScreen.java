@@ -26,7 +26,9 @@ public class SplashScreen extends Screen {
 		mGame.assets.load("buildings/pub/build.png", Texture.class);
 		mGame.assets.load("buildings/pub/door.png", Texture.class);
 		mGame.assets.load("buildings/pub/doorhole.png", Texture.class);
-		mGame.assets.load("buildings/pub/gravityring.png", Texture.class);
+		mGame.assets.load("buildings/pub/innergravityring.png", Texture.class);
+		mGame.assets.load("buildings/pub/outergravityring.png", Texture.class);
+		mGame.assets.load("buildings/pub/test.png", Texture.class);
 		mGame.assets.load("resSop.png",Texture.class);
 		mGame.assets.load("character/character.png", Texture.class);
 		mGame.assets.load("character/backpack.png", Texture.class);		
@@ -37,12 +39,14 @@ public class SplashScreen extends Screen {
 		mGame.assets.get("buildings/pub/build.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mGame.assets.get("buildings/pub/door.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mGame.assets.get("buildings/pub/doorhole.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		mGame.assets.get("buildings/pub/gravityring.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		mGame.assets.get("buildings/pub/innergravityring.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		mGame.assets.get("buildings/pub/outergravityring.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		mGame.assets.get("buildings/pub/test.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mGame.assets.get("resSop.png",Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mGame.assets.get("character/character.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mGame.assets.get("character/backpack.png", Texture.class).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
-
+		
 	public boolean isFinishLoading() {
 		return finishLoading;
 	}
