@@ -44,15 +44,15 @@ public class GameScreen extends Screen {
 		/*
 		 * 	End - Code for debug Box2D shape collisions
 		 */	
-		world = new World(new Vector2(0,-9.81f), true);		
-		world.setContactListener(new ContactEngine(world));
+		world = new World(new Vector2(0,0), true);		
+		world.setContactListener(new ContactEngine(this));
 		character = new Character(world);
 		testBackground = new Sprite(mGame.assets.get("resSop.png",Texture.class));  
 	    testBackground.setPosition(-960, -768);  
 	    testBackground.setSize(1920, 1536);
 	    testBuildingSP = new Pub(380,80, world);	        
 	    testBuildingSP2 = new Pub(-800,0, world);
-	    testBuildingSP3 = new Pub(-180,-300, world); //-320    
+	    testBuildingSP3 = new Pub(-180,-300, world); //-320
 	}
 	
 	public void update(float deltaTime) 
@@ -67,8 +67,7 @@ public class GameScreen extends Screen {
 	public void draw(SpriteBatch batch) 
 	{
 		debugMatrix = batch.getProjectionMatrix().cpy();
-		debugRenderer.render(world, debugMatrix);
-                
+		debugRenderer.render(world, debugMatrix);                
 		testBackground.draw(batch);
 		testBuildingSP.draw(batch);
 		testBuildingSP2.draw(batch);	
@@ -96,4 +95,28 @@ public class GameScreen extends Screen {
 	public void setCharacter(Character character) {
 		this.character = character;
 	}
+
+	public Pub getTestBuildingSP() {
+		return testBuildingSP;
+	}
+
+	public void setTestBuildingSP(Pub testBuildingSP) {
+		this.testBuildingSP = testBuildingSP;
+	}
+
+	public Pub getTestBuildingSP2() {
+		return testBuildingSP2;
+	}
+
+	public void setTestBuildingSP2(Pub testBuildingSP2) {
+		this.testBuildingSP2 = testBuildingSP2;
+	}
+
+	public Pub getTestBuildingSP3() {
+		return testBuildingSP3;
+	}
+
+	public void setTestBuildingSP3(Pub testBuildingSP3) {
+		this.testBuildingSP3 = testBuildingSP3;
+	}	
 }

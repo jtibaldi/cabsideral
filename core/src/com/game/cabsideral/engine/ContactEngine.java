@@ -7,59 +7,86 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.game.cabsideral.buildings.Pub;
+import com.game.cabsideral.codebase.UserDataWrapper;
+import com.game.cabsideral.codebase.Character;
+import com.game.cabsideral.screens.GameScreen;
 
 public class ContactEngine implements ContactListener {
 
-	World mWorld;
+	GameScreen mWorld;	
 	
-	public ContactEngine(World _world) 
+	public ContactEngine(GameScreen _world) 
 	{
 		mWorld = _world;
 	}
 	
 	@Override
 	public void beginContact(Contact contact) {
+		
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();	
 		
-		if(fa.getUserData() != null && fa.getUserData().equals("character")) 
+		UserDataWrapper oFa = (UserDataWrapper)(fa.getUserData());
+		UserDataWrapper oFb = (UserDataWrapper)(fb.getUserData());
+				
+		if(oFa != null && oFa.id =="character") 
 		{
-			if(fb.getUserData() != null && fb.getUserData().equals("outerGravityRing")) 
+			if(oFb != null && oFb.id == "outerGravityRing") 
 			{
-				mWorld.setGravity(new Vector2(0,-98f));				
+				//Poner todas las estructuras como instanceof
+				System.out.println("habilita la gravedad y character es a");
+				if(oFb.instance instanceof Pub) 
+				{
+					//((Character)oFa.instance).setPlanetMass(/*((Pub)oFb.instance).getCenterOfMassBody().getMass()*/ 3000);
+					Vector2 position = ((Pub)oFb.instance).getCenterOfMassBody().getPosition();
+					((Character)oFa.instance).setPlanetPosition(new Vector2(position.x, position.y));
+					//((Character)oFa.instance).setPlanetWorldCenter(((Pub)oFb.instance).getCenterOfMassBody().getWorldCenter());
+					((Character)oFa.instance).setGravityEnable(true);		
+				}				
 			}					
 		}		
-		if(fb.getUserData() != null && fb.getUserData().equals("character")) 
+		if(oFb != null && oFb.id == "character") 
 		{
-			if(fa.getUserData() != null && fa.getUserData().equals("outerGravityRing")) 
+			if(oFa != null && oFa.id == "outerGravityRing") 
 			{
-				mWorld.setGravity(new Vector2(0,-98f));					
-			}					
-		}
+				System.out.println("habilita la gravedad y character es b");
+				if(oFb.instance instanceof Pub) 
+				{
+					//((Character)oFa.instance).setPlanetMass(/*((Pub)oFb.instance).getCenterOfMassBody().getMass()*/ 3000);
+					((Character)oFa.instance).setPlanetPosition(((Pub)oFb.instance).getCenterOfMassBody().getPosition());
+					//((Character)oFa.instance).setPlanetWorldCenter(((Pub)oFb.instance).getCenterOfMassBody().getWorldCenter());
+					((Character)oFa.instance).setGravityEnable(true);		
+				}			
+			}	
+		}		
 	}
 
 	@Override
 	public void endContact(Contact contact) {
+		
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();	
+		
+		UserDataWrapper oFa = (UserDataWrapper)(fa.getUserData());
+		UserDataWrapper oFb = (UserDataWrapper)(fb.getUserData());
 				
-		
-		
-		if(fa.getUserData() != null && fa.getUserData().equals("character")) 
+		if(oFa != null && oFa.id =="character") 
 		{
-			if(fb.getUserData() != null && fb.getUserData().equals("outerGravityRing")) 
+			if(oFb != null && oFb.id == "outerGravityRing") 
 			{
-				mWorld.setGravity(Vector2.Zero);
+				System.out.println("deshabilita la gravedad y character es a");				
+				mWorld.getCharacter().setGravityEnable(false);
 			}					
 		}		
-		if(fb.getUserData() != null && fb.getUserData().equals("character")) 
+		if(oFb != null && oFb.id == "character") 
 		{
-			if(fa.getUserData() != null && fa.getUserData().equals("outerGravityRing")) 
+			if(oFa != null && oFa.id == "outerGravityRing") 
 			{
-				mWorld.setGravity(Vector2.Zero);			
-			}					
-		}
-		
+				System.out.println("deshabilita la gravedad y character es b");
+				mWorld.getCharacter().setGravityEnable(false);			
+			}	
+		}		
 	}
 
 	@Override
@@ -72,7 +99,5 @@ public class ContactEngine implements ContactListener {
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	
+	}	
 }

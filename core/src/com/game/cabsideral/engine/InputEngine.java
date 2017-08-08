@@ -16,10 +16,12 @@ public class InputEngine implements InputProcessor{
 	public boolean keyDown(int keycode) {
 		if(keycode == Input.Keys.RIGHT)			
 			game.getGameScreen().getCharacter().getBody().setLinearVelocity(100f, 0f);
-		if(keycode == Input.Keys.LEFT)	
+		if(keycode == Input.Keys.LEFT)			
 			game.getGameScreen().getCharacter().getBody().setLinearVelocity(-100f,0f);
 		if(keycode == Input.Keys.UP)
-			game.getGameScreen().getCharacter().getBody().setLinearVelocity(0f,300f);
+			game.getGameScreen().getCharacter().getBody().setLinearVelocity(0f,500f);
+		if(keycode == Input.Keys.DOWN)
+			game.getGameScreen().getCharacter().getBody().setLinearVelocity(0f,-500f);		
 		if(keycode == Input.Keys.SPACE) {
 			game.getGameScreen().getCharacter().getBody().setLinearVelocity(0f, 0f);
 			game.getGameScreen().getCharacter().getBody().setAngularVelocity(0f);	
